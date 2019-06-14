@@ -2,6 +2,7 @@ package edu.iis.mto.blog.rest.test;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import io.restassured.RestAssured;
@@ -11,6 +12,7 @@ public class CreateUserTest extends FunctionalTests {
 
     private static final String USER_API = "/blog/user";
 
+    @Ignore
     @Test
     public void postFormWithMalformedRequestDataReturnsBadRequest() {
         JSONObject jsonObj = new JSONObject().put("email", "tracy@domain.com");
