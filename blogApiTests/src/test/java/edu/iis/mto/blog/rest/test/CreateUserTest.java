@@ -25,4 +25,38 @@ public class CreateUserTest extends FunctionalTests {
                    .when()
                    .post(USER_API);
     }
+
+    @Test
+    public void dataIntegrityViolationExceptionShouldGenerateHTTPStatus409(){
+
+        JSONObject jsonObject = new JSONObject();
+        RestAssured.given()
+                .accept(ContentType.JSON)
+                .header("Content-Type","application/json;charset=UTF-8")
+                .body(jsonObject.toString())
+                .expect()
+                .log()
+                .all()
+                .statusCode(HttpStatus.SC_CONFLICT)
+                .when()
+                .post(USER_API);
+    }
+
+    @Test
+    public void postFormWithCreatingNewUserWithTheSameMailReturnsConflict() {
+
+        JSONObject jsonObj = new JSONObject().put("email", "brian@domain.com");
+        RestAssured.given()
+                .accept(ContentType.JSON)
+                .header("Content-Type", "application/json;charset=UTF-8")
+                .body(jsonObj.toString())
+                .expect()
+                .log()
+                .all()
+                .statusCode(HttpStatus.SC_CONFLICT)
+                .when()
+                .post(USER_API);
+    }
+
+
 }
